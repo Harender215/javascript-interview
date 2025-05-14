@@ -1,0 +1,18 @@
+let counter = 0;
+const getData = () => {
+    console.log("fetching data .." + counter++);
+}
+
+const debounce = function(fn, d) {
+    let timer;
+    return function () {
+        let context = this, //This is necessary because setTimeout changes the value of this.
+        args = arguments;
+        clearTimeout(timer); //If the returned function is called again before the delay finishes, it clears the previous timer
+        timer = setTimeout(() => {
+            getData.apply(context, arguments);
+        }, d);
+    }
+}
+
+const betterFunction = debounce(getData, 300);
