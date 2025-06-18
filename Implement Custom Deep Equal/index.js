@@ -25,7 +25,7 @@ function deepEqual(a, b, visited = new Map()) {
     return false;
   }
 
-  for(let i = 0; i < keysA; i++) {
+  for(let i = 0; i < keysA.length; i++) {
     //we recursively call the same logic
     const keyA = keysA[i], keyB = keysB[i];
     if(!deepEqual(a[keyA], b[keyB], visited)) {
@@ -33,7 +33,7 @@ function deepEqual(a, b, visited = new Map()) {
     }
   }
 
-  return true;
+  return true;  
 }
 
 
