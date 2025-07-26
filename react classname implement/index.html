@@ -1,0 +1,55 @@
+function classnames(...args) {
+  const results = [];
+
+  args.forEach( arg => {
+    if(!arg) return;
+
+    if(typeof arg == 'string' || typeof arg === 'number') {
+      results.push(arg);
+      return;
+    }
+
+    //Handling of array
+    if(Array.isArray(arg)) {
+      for(let val of arg) {
+        if(val) results.push(classnames(val));
+      }
+
+      return;
+    }
+
+    //Handling for objects
+    for(let key in arg) {
+      const val = arg[key];
+      if(val) results.push(key);
+    }
+
+  })
+
+  return results.join(" ");
+}
+
+
+console.log(classnames('hide', 'maximize', false));
+console.log(classnames('show', 'maximize', false, 200));
+
+
+const input1 = ['container', { visible: true, 'width-300': 300
+}, { height: null }];
+
+console.log(classnames(input1));
+// 'container visible width-300'
+
+const input2 = ['child-container', { visible: false,
+'width-300': 300 }, [ { isMobile: 'yes', responsive: undefined
+}, { 'margin-5': true } ]];
+console.log(classnames(input2));
+// 'child-container width-300 isMobile margin-5'
+
+const input3 = ['child-container', { visible: false,
+'width-300': 300 }, [ { isMobile: 'yes', responsive: undefined
+}, { 'margin-5': true } ]];
+
+console.log(classnames('toggled', input3, [ { isWrapped: true } ], {
+'color-warning': undefined }));
+// 'toggled child-container width-300 isMobile margin-5 isWrapped'
